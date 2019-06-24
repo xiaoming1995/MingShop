@@ -5,9 +5,26 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\AddCartRequest;
 use App\Models\CartItem;
+use App\Models\productSku;
 
 class CartController extends Controller
-{
+{   
+    //购物车列表
+    public function index(Request $request)
+    {
+        $cartItems = $request->user()->CartItems()->with(['productSku.product'])->get();
+
+        return view('cart.index', ['cartItems' => $cartItems]);
+    }
+
+    //移除
+    public function remove(productSku $sku,Request $reqeust)
+    {
+        $reqeust->user()->cartItems()->where('product_sku_id',$sku->id)->delete();
+
+        return [];
+    }
+
     public function add(AddCartRequest $request)
     {
         $user   = $request->user();
