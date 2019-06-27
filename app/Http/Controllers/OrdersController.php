@@ -27,6 +27,12 @@ class OrdersController extends Controller
 	}
 
 
+	public function show(Order $order, Request $request)
+	{	
+		$this->authorize('own', $order);
+		return view('orders.show', ['order' => $order->load(['items.productSku', 'items.product'])]);
+	}
+
 	/*
 		代码解析：
 		DB::transaction() 方法会开启一个数据库事务，在回调函数里的所有 SQL 写操作都会被包含在这个事务里，如果回调函数抛出异常则会自动回滚这个事务，否则提交事务。用这个方法可以帮我们节省不少代码。

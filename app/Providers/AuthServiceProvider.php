@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 Use App\Models\UserAddress;
 Use App\Policies\UserAddressPolicy;
+use App\Models\Order;
+use App\Policies\OrderPolicy;
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -15,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         UserAddress::class => UserAddressPolicy::class,
+        Order::class       => OrderPolicy::class,
     ];
 
     /**
