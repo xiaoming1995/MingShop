@@ -18,4 +18,5 @@ Route::group([
 	$router->put('products/{id}', 'ProductsController@update');   //商品编辑方法
     $router->get('orders', 'OrdersController@index')->name('admin.orders.index'); //订单页面
     $router->get('orders/{order}', 'OrdersController@show')->name('admin.orders.show'); //订单详情页面
+    $router->post('orders/{order}/ship', 'OrdersController@ship')->name('admin.orders.ship'); //发货操作
 });
