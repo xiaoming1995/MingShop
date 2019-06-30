@@ -6,9 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Exceptions\InvalidRequestException;
 use Carbon\Carbon;
+use App\Events\OrderPaid; //引入事件
 
 class PaymentController extends Controller
-{
+{	
+	protected function afterPaid(Order $order)
+    {
+        event(new OrderPaid($order));
+    }
+
     public function payByAlipay(Order $order, Request $request)
     {
         // 判断订单是否属于当前用户
@@ -40,10 +46,11 @@ class PaymentController extends Controller
 
     // 服务器端回调
     public function alipayNotify()
-    {
+    {	
        // 校验输入参数
         $data  = app('alipay')->verify();
         // 如果订单状态不是成功或者结束，则不走后续的逻辑
+         // \Log::debug('Alipay notify', $data->all());
         // 所有交易状态：https://docs.open.alipay.com/59/103672
         if(!in_array($data->trade_status, ['TRADE_SUCCESS', 'TRADE_FINISHED'])) {
             return app('alipay')->success();
@@ -65,6 +72,8 @@ class PaymentController extends Controller
             'payment_method' => 'alipay', // 支付方式支
             'payment_no'     => $data->trade_no, // 付宝订单号
         ]);
+
+        $this->afterPaid($order);  //事件
 
         return app('alipay')->success();
     }
@@ -112,6 +121,8 @@ class PaymentController extends Controller
             'payment_method' => 'wechat',
             'payment_no'     => $data->transaction_id,
         ]);
+
+        $this->afterPaid($order);
 
         return app('wechat_pay')->success();
     }
