@@ -38,6 +38,8 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::get('payment/alipay/return', 'PaymentController@alipayReturn')->name('payment.alipay.return');
     Route::get('payment/{order}/wechat', 'PaymentController@payByWechat')->name('payment.wechat');   //微信订单处理
     Route::post('orders/{order}/received', 'OrdersController@received')->name('orders.received');   //收获确定
+    Route::get('orders/{order}/review', 'OrdersController@review')->name('orders.review.show');   //评论页面
+    Route::post('orders/{order}/review', 'OrdersController@sendReview')->name('orders.review.store'); //添加评论
 });
 Route::post('payment/alipay/notify', 'PaymentController@alipayNotify')->name('payment.alipay.notify');  //
 Route::post('payment/wechat/notify', 'PaymentController@wechatNotify')->name('payment.wechat.notify');

@@ -93,7 +93,7 @@
           <form method="post" action="{{ route('orders.received', [$order->id]) }}">
             <!-- csrf token 不能忘 -->
             {{ csrf_field() }}
-            <button type="submit" class="btn btn-sm btn-success">确认收货</button>
+            <button type="button"  id="btn-receive" class="btn btn-sm btn-success">确认收货</button>
           </form>
         </div>
         @endif
@@ -145,7 +145,7 @@
           })
       });
     });
-    
+
   });
 </script>
 @endsection
