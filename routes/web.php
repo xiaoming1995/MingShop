@@ -41,9 +41,11 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::get('orders/{order}/review', 'OrdersController@review')->name('orders.review.show');   //评论页面
     Route::post('orders/{order}/review', 'OrdersController@sendReview')->name('orders.review.store'); //添加评论
     Route::post('orders/{order}/apply_refund', 'OrdersController@applyRefund')->name('orders.apply_refund'); //申请退款
+
 });
 Route::post('payment/alipay/notify', 'PaymentController@alipayNotify')->name('payment.alipay.notify');  //
 Route::post('payment/wechat/notify', 'PaymentController@wechatNotify')->name('payment.wechat.notify');
+Route::post('payment/wechat/refund_notify', 'PaymentController@wechatRefundNotify')->name('payment.wechat.refund_notify'); //微信退款回调
 Route::get('products/{product}', 'ProductsController@show')->name('products.show');
 Route::get('alipay', function() {
     return app('alipay')->web([

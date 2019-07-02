@@ -77,7 +77,7 @@
                 @endforeach
               </table>
             </div>
-          </div>
+          </div> 
         </li>
       @endforeach
     </ul>
