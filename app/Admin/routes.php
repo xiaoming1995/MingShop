@@ -19,4 +19,5 @@ Route::group([
     $router->get('orders', 'OrdersController@index')->name('admin.orders.index'); //订单页面
     $router->get('orders/{order}', 'OrdersController@show')->name('admin.orders.show'); //订单详情页面
     $router->post('orders/{order}/ship', 'OrdersController@ship')->name('admin.orders.ship'); //发货操作
+    $router->post('orders/{order}/refund', 'OrdersController@handleRefund')->name('admin.orders.handle_refund');
 });
