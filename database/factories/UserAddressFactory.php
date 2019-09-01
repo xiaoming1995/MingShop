@@ -1,5 +1,7 @@
 <?php
-
+use App\Models\User;
+use App\Models\UserAddress;
+use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 
 $factory->define(App\Models\UserAddress::class, function (Faker $faker) {

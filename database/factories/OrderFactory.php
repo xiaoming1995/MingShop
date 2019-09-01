@@ -1,9 +1,10 @@
 <?php
-
+use App\Models\CouponCode;
+use App\Models\Order;
+use App\Models\User;
 use Faker\Generator as Faker;
 
 $factory->define(App\Models\Order::class, function (Faker $faker) {
-    return [
         // 随机取一个用户
 	    $user = User::query()->inRandomOrder()->first();
 	    // 随机取一个该用户的地址
@@ -47,5 +48,4 @@ $factory->define(App\Models\Order::class, function (Faker $faker) {
 	        'user_id'        => $user->id,
 	        'coupon_code_id' => $coupon ? $coupon->id : null,
 	    ];
-    ];
 });

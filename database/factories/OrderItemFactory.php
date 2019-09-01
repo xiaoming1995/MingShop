@@ -1,12 +1,10 @@
 <?php
 
-use App\Models\CouponCode;
-use App\Models\Order;
-use App\Models\User;
+use App\Models\OrderItem;
+use App\Models\Product;
 use Faker\Generator as Faker;
 
 $factory->define(App\Models\OrderItem::class, function (Faker $faker) {
-    return [
          // 从数据库随机取一条商品
 	    $product = Product::query()->where('on_sale', true)->inRandomOrder()->first();
 	    // 从该商品的 SKU 中随机取一条
@@ -21,5 +19,4 @@ $factory->define(App\Models\OrderItem::class, function (Faker $faker) {
 	        'product_id'     => $product->id,
 	        'product_sku_id' => $sku->id,
 	    ];
-    ];
 });
